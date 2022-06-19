@@ -4,7 +4,7 @@ import pin from "./pin.png"
 import {useDispatch, useSelector} from "react-redux";
 import {formActions} from "../../store/form-slice";
 import './form.sass'
-import {Button, Modal, Form} from "react-bootstrap";
+import {Button, Modal, Form, Alert} from "react-bootstrap";
 
 /**
  *
@@ -13,6 +13,7 @@ import {Button, Modal, Form} from "react-bootstrap";
  * @constructor
  */
 const FormEditLocation = ({id}) => {
+    const [show ,setShow]=useState('')
     const dispatch = useDispatch()
     const [name, setName] = useState('')
     const [logo, setLogo] = useState('')
@@ -42,10 +43,12 @@ const FormEditLocation = ({id}) => {
         setName("")
         setLogo("")
         setType("")
+        setShow(true)
     }
     return (
         <div className="">
             <div className="modal_form">
+
                 <Form className="row">
                     <label className="col-6 mt-12">location name : </label>
                     <Form.Control
@@ -94,11 +97,17 @@ const FormEditLocation = ({id}) => {
                         value={''}
                         onChange={onImageChange}
                     />
+
                 </Form>
+                { show?
+                    <Alert variant="success" className='mt-3' onClose={()=> setShow(false)} dismissible >save your edit</Alert> : false
+
+                }
                 <Button onClick={shareHandler} className="mt-3 d-inline-block w-25 float-end">save</Button>
                 {/*<Button  onClick={handleClose} className='d-inline-block w-25 float-end'>cancel</Button>*/}
 
             </div>
+
         </div>
     )
 }
